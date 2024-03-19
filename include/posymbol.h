@@ -3,6 +3,6 @@
 
 // define the genericity
 #define TYPE void *
-#define P(X) (*X)
+#define P(X) (*(X))
 
 #endif //POSYMBOL_H
