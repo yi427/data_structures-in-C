@@ -3,11 +3,13 @@
 #include <stdio.h>
 #include "../include/polist.h"
 
+#define CHECK 1
 #define public extern
-#define NEW_NODE(VAL, NEXT, PREV) (node_t) {    \
-    .val = VAL,                                 \
-    .next = NEXT,                               \
-    .prev = PREV                                \
+#define private static
+#define NEW_NODE(VAL, NEXT, PREV) (node_t) {  \
+  .val = VAL,                                 \
+  .next = NEXT,                               \
+  .prev = PREV                                \
 }
 
 public void List_Init(list_t *t) {
@@ -29,6 +31,7 @@ public void List_Push_Front(list_t *t, TYPE val) {
 	node->next = head; // Update the next pointer
 	head->prev = node; // Update the prev pointer
 	t->head = node;		 // Update the head ndoe
+  if (CHECK) List_Check(t);
 }
 
 public void List_Push_Back(list_t *t, TYPE val) {
@@ -42,30 +45,48 @@ public void List_Push_Back(list_t *t, TYPE val) {
 		return;
 	}
 	assert(tail);
-	node_t *prev = tail->prev; // Notes: the prev don't guarantee ISNULL()
 	tail->next = node; // Update the next pointer
-	node->prev = prev; // Update the prev pointer
+	node->prev = tail; // Update the prev pointer
 	t->tail = node;    // Update the tail node
+  if (CHECK) List_Check(t);
 }
 
 public void List_Clean(list_t *t) {
+  if (CHECK) List_Check(t);
   while (t->head) {				// for-each the list
     node_t *curr = t->head;
-		assert(curr);
-		assert(curr->val);
-		t->head = curr->next;
-		free(curr->val); // release the currently val
+    assert(curr);
+    assert(curr->val);
+    t->head = curr->next;
+    free(curr->val); // release the currently val
     free(curr);			// release the currently node
   }
 	free(t);						// release the list
 }
 
+
 public void List_Print(const list_t *t) {
+  if (CHECK) List_Check(t);
   const node_t *curr = t->head;
   while (curr != NULL) {
     printf("%d->", P((int *)curr->val));
-		curr = curr->next;
+    curr = curr->next;
   }
   printf("NULL\n");
 }
 
+private void List_Check(const list_t *t) {
+  // printf("begin check: ");
+  const node_t *curr = t->head;
+  const node_t *prev = curr->prev;
+  while (curr) {
+    assert(curr->prev == prev);
+    // printf("%d->", P((int *)curr->val));
+    prev = curr;
+    curr = curr->next;
+  }
+  // printf("\ncheck end\n");
+}
+
+#undef public
+#undef private

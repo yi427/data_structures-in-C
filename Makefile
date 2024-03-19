@@ -1,15 +1,16 @@
 CC = gcc
 VALFLAGS = --tool=memcheck --leak-check=full
-CFLAGS = -Wall -Wextra -std=c11 -Iinclude
+CFLAGS = -Wall -Wextra -std=c11
+INCLUDES = -Iinclude
 
-list: main.o list.o
+list: list.o main.o
 	${CC} ${CFLAGS} -o list main.o list.o
 
 main.o: main.c
-	${CC} ${CFLAGS} -c main.c	
+	${CC} ${CFLAGS} -c main.c	src/polist.c
 
 list.o: src/polist.c include/polist.h
-	${CC} ${CFLAGS} -o list.o -c src/polist.c	
+	${CC} ${CFLAGS} ${INCLUDES} -o list.o -c src/polist.c	
 
 check: list
 	valgrind ${VALFLAGS} ./list
