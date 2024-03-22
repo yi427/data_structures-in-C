@@ -12,16 +12,20 @@
   .prev = PREV                                \
 }
 
-public void List_Init(list_t *t) {
+static ref_t GET;
+
+public void List_Init(list_t *t, ref_t _r) {
   assert(t != NULL);
+  assert(_r != NULL);
   t->head = t->tail = NULL;
+  GET = _r;
 }
 
 public void List_Push_Front(list_t *t, TYPE val) {
   assert(t);
   node_t *node = (node_t*)malloc(sizeof(node_t));
   assert(node);		  // Check the malloc 
-  P(node) = NEW_NODE(val, NULL, NULL);
+  P(node) = NEW_NODE(GET(val), NULL, NULL);
   node_t *head = t->head;
   if (!head) {			// The list don't have arbitrary node
   	t->head = t->tail = node;
@@ -38,7 +42,7 @@ public void List_Push_Back(list_t *t, TYPE val) {
   assert(t);
   node_t *node = (node_t*)malloc(sizeof(node_t));
   assert(node);		  // Check the malloc 
-  P(node) = NEW_NODE(val, NULL, NULL);
+  P(node) = NEW_NODE(GET(val), NULL, NULL);
   node_t *tail = t->tail;
   if (!tail) {			// The list don't have arbitrary node
   	t->head = t->tail = node;
@@ -79,6 +83,8 @@ public void List_Clean(list_t *t) {
 
 public void List_Print(const list_t *t, print_t pri) {
   if (CHECK) List_Check(t);
+  if (!t || !t->head) return;
+  assert(t->head);
   const node_t *curr = t->head;
   while (curr != NULL) {
     pri(curr->val);
@@ -88,6 +94,8 @@ public void List_Print(const list_t *t, print_t pri) {
 }
 
 private void List_Check(const list_t *t) {
+  if (!t || !t->head) return;
+  assert(t->head);
   const node_t *curr = t->head;
   const node_t *prev = curr->prev;
   while (curr) {
