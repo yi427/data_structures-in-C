@@ -94,7 +94,7 @@ public void List_Erase(list_t *t, int index) {
   if (index == 0) {
     List_Pop_Front(t);
     return;
-  } else if ((size_t)index > List_Size(t) - 1) {
+  } else if ((size_t)index == List_Size(t) - 1) {
     List_Pop_Back(t);
     return;
   }
@@ -103,7 +103,7 @@ public void List_Erase(list_t *t, int index) {
     curr = curr->next;
     index--;
   }
-  if (index > 0) return;
+  if (!curr) return;
   assert(curr->prev);
   curr->prev->next = curr->next;
   assert(curr->next);
