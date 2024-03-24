@@ -22,9 +22,17 @@ typedef struct __list_t {
 public void List_Init(list_t *, ref_t);
 public void List_Push_Back(list_t *, TYPE);
 public void List_Push_Front(list_t *, TYPE);
+public void List_Pop_Back(list_t *);
+public void List_Pop_Front(list_t *);
+public void* List_Front(list_t *);
+public void* List_Back(list_t *);
+public void List_Insert(list_t *, int, TYPE);
+public void List_Erase(list_t*, int);
 public node_t* List_Search(const list_t*, compare_t, TYPE val);
+public size_t  List_Size(const list_t*);
 
 public void List_Clean(list_t *);
+public void Node_Clean(node_t *);
 public void List_Print(const list_t *, print_t);
 
 private void List_Check(const list_t*);

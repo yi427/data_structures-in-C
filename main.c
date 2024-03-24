@@ -26,10 +26,27 @@ int main() {
 		for (int i = 0; i < 10; ++i) {
 			List_Push_Front(t, (void*)&i);
 		}
-    int i = 2;
-    node_t *res = List_Search(t, (compare_t)compare, (void *)&i);
-    printf("%d\n", *(int *)res->val);
+    size_t len = List_Size(t);
+    printf("%d\n", (int)List_Size(t));
     List_Print(t, (print_t)print);
+    for (size_t i = 0; i < len; ++i) {
+      printf("%ld:", i);
+      List_Pop_Back(t);
+      // List_Pop_Front(t);
+      List_Print(t, (print_t)print);
+      printf("\n");
+    }
+    for (int i = 0; i < 5; ++i) {
+      int index = i == 0 ? 0 : i-1;
+      List_Insert(t, index, (void*)&i);
+      List_Print(t, (print_t)print);
+    }
+    for (int i = 0; i < 5; ++i) {
+      int index = i == 0 ? 0 : i-1;
+      printf("%d:", index);
+      List_Erase(t, index);
+      List_Print(t, (print_t)print);
+    }
     List_Clean(t);
     return 0;
 }

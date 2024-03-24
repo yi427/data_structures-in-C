@@ -66,6 +66,56 @@ public node_t* List_Search(const list_t *t, compare_t com, TYPE val) {
   }
   return curr;
 }
+// @brief: insert the index front, else if the index == size, will equie to the Push_Back
+public void List_Insert(list_t *t, int index, TYPE val) {
+  assert(t);
+  if (index == 0) {
+    List_Push_Front(t, val);
+    return;
+  } else if ((size_t)index == List_Size(t)) {
+    List_Push_Back(t, val);
+    return;
+  }
+  node_t *curr = t->head;
+  while (curr && index) {
+    curr = curr->next;
+    index--;
+  }
+  if (!curr) return; // the index > the list length
+  node_t *node = (node_t*)malloc(sizeof(node_t));
+  P(node) = NEW_NODE(GET(val), curr, curr->prev);
+  assert(curr->prev);
+  curr->prev->next = node;
+  curr->prev = node;
+}
+
+public void List_Erase(list_t *t, int index) {
+  assert(t);
+  if (index == 0) {
+    List_Pop_Front(t);
+    return;
+  } else if ((size_t)index > List_Size(t) - 1) {
+    List_Pop_Back(t);
+    return;
+  }
+  node_t *curr = t->head;
+  while (curr && index) {
+    curr = curr->next;
+    index--;
+  }
+  if (index > 0) return;
+  assert(curr->prev);
+  curr->prev->next = curr->next;
+  assert(curr->next);
+  curr->next->prev = curr->prev;
+  Node_Clean(curr);
+}
+
+public void Node_Clean(node_t *n) {
+  assert(n);
+  free(n->val);
+  free(n);
+}
 
 public void List_Clean(list_t *t) {
   if (CHECK) List_Check(t);
@@ -80,16 +130,61 @@ public void List_Clean(list_t *t) {
   free(t);						// release the list
 }
 
+public size_t List_Size(const list_t *t) {
+  assert(t);
+  size_t res = 0;
+  node_t *curr = t->head;
+  while (curr) {
+    res++;
+    curr = curr->next;
+  }
+  return res;
+}
+
+public void List_Pop_Front(list_t *t) {
+  assert(t && t->head);
+  node_t *head = t->head;
+  if (t->head == t->tail) {
+    t->head = t->tail = NULL;
+  } else {
+    t->head = t->head->next;
+    if (t->head) t->head->prev = NULL; // Notes: must set the prev is the NULL
+  }
+  Node_Clean(head);
+}
+
+public void* List_Front(list_t* t) {
+  assert(t && t->head);
+  return t->head->val;
+}
+
+public void List_Pop_Back(list_t *t) {
+  assert(t && t->tail);
+  node_t *tail = t->tail;
+  if (t->head == t->tail) {
+    t->head = t->tail = NULL;
+  } else {
+    t->tail = t->tail->prev;
+    if (t->tail) t->tail->next = NULL; // Notes: must be set the next is the NULL
+  }
+  Node_Clean(tail);
+}
+
+public void* List_Back(list_t *t) {
+  assert(t && t->tail);
+  return t->tail->val;
+}
 
 public void List_Print(const list_t *t, print_t pri) {
   if (CHECK) List_Check(t);
-  if (!t || !t->head) return;
+  if (!t || !t->head) goto End;
   assert(t->head);
   const node_t *curr = t->head;
   while (curr != NULL) {
     pri(curr->val);
     curr = curr->next;
   }
+End:
   printf("NULL\n");
 }
 
