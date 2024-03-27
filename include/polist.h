@@ -1,9 +1,9 @@
 #ifndef POLIST_H
 #define POLIST_H
-#include "posymbol.h"
 #include <stdio.h>
 #define public 
 #define private
+#define TYPE void *
 
 typedef int (*compare_t)(void *, void *);
 typedef void (*print_t)(void *);
@@ -39,4 +39,5 @@ private void List_Check(const list_t*);
 
 #undef public
 #undef private
+#undef TYPE
 #endif

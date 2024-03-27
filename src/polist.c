@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include "../include/polist.h"
 
-#define CHECK 1
+#define CHECK 0
 #define public extern
 #define private extern
+#define P(x) *(x)
+#define TYPE void *
 #define NEW_NODE(VAL, NEXT, PREV) (node_t) {  \
   .val = VAL,                                 \
   .next = NEXT,                               \
@@ -202,3 +204,4 @@ private void List_Check(const list_t *t) {
 
 #undef public
 #undef private
+#undef P
