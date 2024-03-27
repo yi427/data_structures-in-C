@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "include/polist.h"
+#include "polist.h"
 
 void print(int *i) {
   printf("%d->", *i);

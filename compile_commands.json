@@ -1,0 +1,31 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "list.o",
+      "src/polist.c"
+    ],
+    "directory": "/home/pan_/data_structures-in-C",
+    "file": "/home/pan_/data_structures-in-C/src/polist.c",
+    "output": "/home/pan_/data_structures-in-C/list.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "main.c"
+    ],
+    "directory": "/home/pan_/data_structures-in-C",
+    "file": "/home/pan_/data_structures-in-C/main.c"
+  }
+]
