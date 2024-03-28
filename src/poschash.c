@@ -7,14 +7,17 @@
   .next = _next}
 
 static REF_T REF;
+// static HASH_T HASH;
+// static const int DEFAULT_TABLE_SIZE = 101;
 
-void List_Init(list_t *l) {
+void List_Init(list_t *l, REF_T get) {
   assert(l); // Check the l is to alloct
   *l = (list_t) {
     .head = NULL,
     .tail = NULL,
     .len = 0
   };
+  REF = get;
 }
 
 void List_Push_Front(list_t *l, TYPE val) {
@@ -43,6 +46,20 @@ void List_Push_Back(list_t *l, TYPE val) {
     l->tail = node;
   }
   l->len++;
+}
+
+void List_Clean(list_t *l) {
+  assert(l);
+  node_t *curr = l->head;
+  while (curr != NULL) {
+    l->len--;
+    node_t *next = curr->next;
+    free(curr->val);
+    free(curr);
+    curr = next;
+  }
+  assert(l->len == 0);
+  free(l);
 }
 
 #undef TYPE
