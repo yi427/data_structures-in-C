@@ -10,7 +10,7 @@ array.o: array.c
 	${CC} ${CFLAGS} ${INCLUDES} -c array.c
 
 poarray.o: ../src/poarray.c ../include/poarray.h
-	${CC} ${CFLAGS} ${INCLUDES} -c ../src/array.c	
+	${CC} ${CFLAGS} ${INCLUDES} -c ../src/poarray.c	
 
 check: array
 	valgrind ${VALFLAGS} ./array
