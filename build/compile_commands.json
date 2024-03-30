@@ -5,12 +5,12 @@
       "-Wall",
       "-Wextra",
       "-std=c11",
-      "-I../include",
+      "-Iinclude",
       "-c",
-      "list.c"
+      "src/poarray.c"
     ],
-    "directory": "/home/pan_/data_structures-in-C/list",
-    "file": "/home/pan_/data_structures-in-C/list/list.c"
+    "directory": "/home/pan_/data_structures-in-C",
+    "file": "/home/pan_/data_structures-in-C/src/poarray.c"
   },
   {
     "arguments": [
@@ -18,11 +18,24 @@
       "-Wall",
       "-Wextra",
       "-std=c11",
-      "-I../include",
+      "-Iinclude",
       "-c",
-      "../src/polist.c"
+      "src/polist.c"
     ],
-    "directory": "/home/pan_/data_structures-in-C/list",
+    "directory": "/home/pan_/data_structures-in-C",
     "file": "/home/pan_/data_structures-in-C/src/polist.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "src/poschash.c"
+    ],
+    "directory": "/home/pan_/data_structures-in-C",
+    "file": "/home/pan_/data_structures-in-C/src/poschash.c"
   }
 ]

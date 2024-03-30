@@ -144,7 +144,8 @@ public size_t List_Size(const list_t *t) {
 }
 
 public void List_Pop_Front(list_t *t) {
-  assert(t && t->head);
+  assert(t);
+  if (!t->head && !t->tail) return;
   node_t *head = t->head;
   if (t->head == t->tail) {
     t->head = t->tail = NULL;
@@ -161,7 +162,8 @@ public void* List_Front(list_t* t) {
 }
 
 public void List_Pop_Back(list_t *t) {
-  assert(t && t->tail);
+  assert(t);
+  if (!t->head && !t->tail) return;
   node_t *tail = t->tail;
   if (t->head == t->tail) {
     t->head = t->tail = NULL;
@@ -179,9 +181,9 @@ public void* List_Back(list_t *t) {
 
 public void List_Print(const list_t *t, print_t pri) {
   if (CHECK) List_Check(t);
+  const node_t *curr = t->head;
   if (!t || !t->head) goto End;
   assert(t->head);
-  const node_t *curr = t->head;
   while (curr != NULL) {
     pri(curr->val);
     curr = curr->next;
