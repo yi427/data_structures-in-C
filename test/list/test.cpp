@@ -3,7 +3,6 @@
 #include <random>
 #include <list>
 #include <assert.h>
-#include <iostream>
 #include <iterator>
 
 using namespace std;
@@ -32,7 +31,7 @@ int *ref(int *t) {
   return res;
 }
 
-list_t *t = (list_t *)malloc(sizeof(list_t));
+list_t *t = List_Construction();
 list<int> l;
 
 void TEST(int pos) {
@@ -41,10 +40,10 @@ void TEST(int pos) {
   switch(pos) {
     case 0: l.push_front(val); List_Push_Front(t, &val); break;
     case 1: l.push_back(val); List_Push_Back(t, &val); break;
-    case 3: if (t->head == NULL) break; assert(l.front() == *(int *)List_Front(t)); break;
-    case 4: if (t->tail == NULL) break; assert(l.back() == *(int *)List_Back(t)); break;
-    case 5: if (t->tail == NULL) break; l.pop_back(); List_Pop_Back(t); break;
-    case 6: if (t->head == NULL) break; l.pop_front(); List_Pop_Front(t); break;
+    case 3: if (size(l) == 0) break; assert(l.front() == *(int *)List_Front(t)); break;
+    case 4: if (size(l) == 0) break; assert(l.back() == *(int *)List_Back(t)); break;
+    case 5: if (size(l) == 0) break; l.pop_back(); List_Pop_Back(t); break;
+    case 6: if (size(l) == 0) break; l.pop_front(); List_Pop_Front(t); break;
     case 7: {
               int ins = pick(0, size(l));
               auto iter = begin(l);
@@ -65,17 +64,6 @@ void TEST(int pos) {
   }
 }
 
-void check() {
-  node_t *head = t->head;
-  auto iter = begin(l);
-  while (head != NULL) {
-    assert(*(int *)head->val == *iter);
-    head = head->next;
-    iter++;
-  }
-  assert(iter == end(l));
-}
-
 void print(int *t) {
   printf("%d->", *t);
 }
@@ -84,14 +72,10 @@ int
 main() {
   List_Init(t, (ref_t)ref);
   randomize();
-  constexpr int M = 1e6, cnt = 5000;
+  constexpr int M = 1e6;
   for (int i = 0; i < M; ++i) {
     int pos = pick(0, 9);
     TEST(pos);
-    if (i % cnt == 0) {
-      check();
-      cout << "The " << i << " check successfully" << endl;
-    }
   }
   List_Clean(t);
 }

@@ -57,6 +57,6 @@ public void Array_Print(array_t *t){
 public void Array_Destory(array_t *t){
     if(t != NULL){
         // free(t->elementData);
-        free(t);    
+        free(t);
     }
 }
