@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
+#define __GET_STREUCT__
 #include "polist.h"
 
 #define CHECK 0
@@ -14,6 +15,7 @@
   .prev = PREV                                \
 }
 
+private void Node_Clean(node_t *);
 private void List_Check(const list_t *);
 
 typedef struct __node_t {
