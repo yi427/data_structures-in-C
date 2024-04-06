@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
+
 #define __GET_STREUCT__
 #include "polist.h"
 
 #define CHECK 0
-#define public 
-#define private 
+#define public extern
+#define private static
 #define P(x) *(x)
 #define TYPE void *
 #define NEW_NODE(VAL, NEXT, PREV) (node_t) {  \
@@ -95,16 +96,16 @@ public void List_Insert(list_t *t, int index, TYPE val) {
   if (index == 0) {
     List_Push_Front(t, val);
     return;
-  } else if ((size_t)index == List_Size(t)) {
-    List_Push_Back(t, val);
-    return;
-  }
+  } 
   node_t *curr = t->head;
   while (curr && index) {
     curr = curr->next;
     index--;
   }
-  if (!curr) return; // the index > the list length
+  if (!curr) {
+    if (!index) List_Push_Back(t, val);
+    return;
+  }
   node_t *node = (node_t*)malloc(sizeof(node_t));
   P(node) = NEW_NODE(GET(val), curr, curr->prev);
   assert(curr->prev);
@@ -117,16 +118,17 @@ public void List_Erase(list_t *t, int index) {
   if (index == 0) {
     List_Pop_Front(t);
     return;
-  } else if ((size_t)index == List_Size(t) - 1) {
-    List_Pop_Back(t);
-    return;
-  }
+  } 
   node_t *curr = t->head;
   while (curr && index) {
     curr = curr->next;
     index--;
   }
   if (!curr) return;
+  else if (curr == t->tail) {
+    List_Pop_Back(t);
+    return;
+  }
   assert(curr->prev);
   curr->prev->next = curr->next;
   assert(curr->next);
@@ -172,7 +174,7 @@ public void List_Pop_Front(list_t *t) {
     t->head = t->tail = NULL;
   } else {
     t->head = t->head->next;
-    if (t->head) t->head->prev = NULL; // Notes: must set the prev is the NULL
+    t->head->prev = NULL; // Notes: must set the prev is the NULL
   }
   Node_Clean(head);
 }
@@ -190,7 +192,7 @@ public void List_Pop_Back(list_t *t) {
     t->head = t->tail = NULL;
   } else {
     t->tail = t->tail->prev;
-    if (t->tail) t->tail->next = NULL; // Notes: must be set the next is the NULL
+    t->tail->next = NULL; // Notes: must be set the next is the NULL
   }
   Node_Clean(tail);
 }
