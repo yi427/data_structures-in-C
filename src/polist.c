@@ -202,19 +202,6 @@ public void* List_Back(list_t *t) {
   return t->tail->val;
 }
 
-public void List_Print(const list_t *t, print_t pri) {
-  if (CHECK) List_Check(t);
-  const node_t *curr = t->head;
-  if (!t || !t->head) goto End;
-  assert(t->head);
-  while (curr != NULL) {
-    pri(curr->val);
-    curr = curr->next;
-  }
-End:
-  printf("NULL\n");
-}
-
 private void List_Check(const list_t *t) {
   if (!t || !t->head) return;
   assert(t->head);
@@ -225,6 +212,19 @@ private void List_Check(const list_t *t) {
     prev = curr;
     curr = curr->next;
   }
+}
+
+public node_t* List_Begin(const list_t *t) {
+  assert(t);
+  return t->head;
+}
+public node_t* Node_Next(const node_t *n) {
+  assert(n);
+  return n->next;
+}
+public node_t* Node_Prev(const node_t *n) {
+  assert(n);
+  return n->prev;
 }
 
 #undef public

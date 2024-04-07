@@ -10,7 +10,9 @@ typedef void *(*ref_t)(void*);
 
 // define the interface to provide the transparent
 #ifndef __GET_STREUCT__
-typedef struct __node_t node_t;
+typedef struct __node_t {
+    TYPE val;
+} node_t;
 typedef struct __list_t list_t;
 #else // This is just to define the identifier
 typedef struct __node_t node_t;
@@ -30,9 +32,12 @@ void List_Insert(list_t *, int, TYPE);
 void List_Erase(list_t*, int);
 node_t* List_Search(const list_t*, compare_t, TYPE val);
 size_t  List_Size(const list_t*);
+node_t* List_Begin(const list_t *);
+
+node_t* Node_Next(const node_t *);
+node_t* Node_Prev(const node_t *);
 
 void List_Clean(list_t *);
-void List_Print(const list_t *, print_t);
 
 #undef public
 #undef private
