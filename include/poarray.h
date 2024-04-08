@@ -1,5 +1,6 @@
 #ifndef POARRAY_H
 #define POARRAY_H
+#include <stdio.h>
 
 #define Object int
 #define public
@@ -13,7 +14,6 @@ typedef struct __array_t {
 
 
 public array_t* Array_Init(int initialSize);
-public void Array_Destory(array_t *);
 private void Array_Ensure_Capacity(array_t **, int minCapacity);
 private void Array_Grow(array_t **, int minCapacity);
 public void Array_Add(array_t **, Object element);

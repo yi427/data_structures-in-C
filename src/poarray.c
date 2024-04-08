@@ -66,11 +66,6 @@ public void Array_Print(array_t *t){
 
 public void Array_Destory(array_t *t){
     if(t != NULL){
-<<<<<<< HEAD
         free(t);    
-=======
-        // free(t->elementData);
-        free(t);
->>>>>>> 4e5ca5f7a430e13a27c58bd47dfc78e8ee545ebb
     }
 }
