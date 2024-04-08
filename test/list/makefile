@@ -17,9 +17,12 @@ check: list
 	valgrind ${VALFLAGS} ./list
 
 test: test.cpp
-	g++ -ggdb ${INCLUDES} ${ROOT}/src/polist.c test.cpp
-	valgrind ${VALFLAGS} ./a.out
-	rm a.out
+	g++ -I.. -c ../tester.cpp 
+	g++ -c ${INCLUDES} ${ROOT}/src/polist.c 
+	g++ -c ${INCLUDES} test.cpp
+	g++ -o test test.o tester.o polist.o
+	valgrind ${VALFLAGS} ./test
+	rm -r test *.o
 
 run: list
 	./list
