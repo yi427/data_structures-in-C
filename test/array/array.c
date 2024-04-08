@@ -5,6 +5,7 @@ int main(){
     for(int i = 0; i < 30; ++i){
         Array_Add(&t, i);    
     }
+    Array_Delete(&t, 3);
     Array_Print(t);
     Array_Destory(t);
     return 0;

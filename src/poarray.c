@@ -24,12 +24,22 @@ public void Array_Add(array_t **t, Object element){
     (*t)->size++;
 }
 
-public void Array_Ensure_Capacity(array_t **t, int minCapacity){
+public void Array_Delete(array_t **t, int index){
+    assert(t != NULL);
+    if(index < 0 || index >= (*t)->size) return;
+    for(int i = index + 1; i < (*t)->size; ++i){
+        (*t)->elementData[i - 1] =  (*t)->elementData[i]; 
+    }
+    (*t)->size--;
+}
+
+private void Array_Ensure_Capacity(array_t **t, int minCapacity){
     if((*t)->capacity < minCapacity){
         Array_Grow(t, minCapacity);
     }
 }
-public void Array_Grow(array_t **t, int minCapacity) {
+
+private void Array_Grow(array_t **t, int minCapacity) {
     int oldCapacity = (*t)->capacity;
     int newCapacity = oldCapacity + (oldCapacity >> 1);
     if (newCapacity < minCapacity) {
@@ -56,7 +66,6 @@ public void Array_Print(array_t *t){
 
 public void Array_Destory(array_t *t){
     if(t != NULL){
-        // free(t->elementData);
         free(t);    
     }
 }
