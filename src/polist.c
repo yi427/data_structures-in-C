@@ -218,6 +218,11 @@ public node_t* List_Begin(const list_t *t) {
   assert(t);
   return t->head;
 }
+public node_t* List_End(const list_t *t) {
+  assert(t);
+  return t->tail;
+}
+
 public node_t* Node_Next(const node_t *n) {
   assert(n);
   return n->next;

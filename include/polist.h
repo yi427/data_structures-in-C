@@ -33,6 +33,7 @@ void List_Erase(list_t*, int);
 node_t* List_Search(const list_t*, compare_t, TYPE val);
 size_t  List_Size(const list_t*);
 node_t* List_Begin(const list_t *);
+node_t* List_End(const list_t *);
 
 node_t* Node_Next(const node_t *);
 node_t* Node_Prev(const node_t *);
