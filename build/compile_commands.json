@@ -37,5 +37,31 @@
     ],
     "directory": "/home/pan_/data_structures-in-C",
     "file": "/home/pan_/data_structures-in-C/src/poschash.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "src/podisplay.c"
+    ],
+    "directory": "/home/pan_/data_structures-in-C",
+    "file": "/home/pan_/data_structures-in-C/src/podisplay.c"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "src/potree.c"
+    ],
+    "directory": "/home/pan_/data_structures-in-C",
+    "file": "/home/pan_/data_structures-in-C/src/potree.c"
   }
 ]

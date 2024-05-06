@@ -2,9 +2,8 @@
 #include <assert.h>
 #include <stdlib.h>
 #define TYPE void *
-#define NEW_NODE(_val, _next) (node_t) {\
-  .val = _val, \
-  .next = _next}
+#define NEW_NODE(_val, _next)                                                  \
+  (node_t) { .val = _val, .next = _next }
 
 static REF_T REF;
 // static HASH_T HASH;
@@ -12,11 +11,7 @@ static REF_T REF;
 
 void List_Init(list_t *l, REF_T get) {
   assert(l); // Check the l is to alloct
-  *l = (list_t) {
-    .head = NULL,
-    .tail = NULL,
-    .len = 0
-  };
+  *l = (list_t){.head = NULL, .tail = NULL, .len = 0};
   REF = get;
 }
 
