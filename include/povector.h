@@ -6,7 +6,7 @@
 #define T int
 
 #ifndef __GET_STREUCT__
-
+// Empty for the visible interface
 #else
 #endif
 typedef struct __Vector_t Vector_t;
