@@ -1,10 +1,15 @@
 #include "povector.h"
 #include <assert.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #define T int
 #define ST true
+#define Get(I) Vector_Get(v, I)
+#define Set(I, ITEM) Vector_Set(v, I, ITEM)
+#define Size() Vector_Size(v)
+#define Empty() Vector_Empty(v)
 #define CHECK(c, a)                                                            \
   if (c)                                                                       \
   assert(a)
@@ -38,22 +43,41 @@ extern void Vector_Deconstruction(Vector_t *v) {
 }
 
 extern void Vector_Push_Back(Vector_t *v, T item) {
-  if (v->c == Vector_Size(v))
+  if (v->c == Size())
     resize(v, v->c * 2);
-  Vector_Set(v, v->d->size, item);
+  Set(v->d->size, item);
   v->d->size++;
 }
 
 extern void Vector_Push_Front(Vector_t *v, T item) {
-  if (v->c == Vector_Size(v))
+  int l = Size();
+  if (v->c == (size_t)l)
     resize(v, v->c * 2);
-  int l = Vector_Size(v);
   for (int i = l - 1; i >= 0; --i) {
-    T t = Vector_Get(v, i);
-    Vector_Set(v, i + 1, t);
+    Set(i + 1, Get(i)); // v[i+1] = v[i]
   }
-  Vector_Set(v, 0, item);
+  Set(0, item); // v[0] = item
   v->d->size++;
+}
+
+extern void Vector_Pop_Back(Vector_t *v) {
+  if (Empty()) {
+    perror("The vector is empty");
+    exit(1);
+  }
+  v->d->size--;
+}
+
+extern void Vector_Pop_Front(Vector_t *v) {
+  if (Empty()) {
+    perror("The vecotr is empty");
+    exit(-1);
+  }
+  int l = Size();
+  for (int i = 0; i < l - 1; ++i) {
+    Set(i, Get(i + 1));
+  }
+  v->d->size--;
 }
 
 extern T Vector_Get(Vector_t *v, size_t pos) {
@@ -86,4 +110,8 @@ static void resize(Vector_t *v, size_t c) {
 
 #undef ST
 #undef CHECK
+#undef Set
+#undef Get
+#undef Size
+#undef Empty
 #undef T
